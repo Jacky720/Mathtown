@@ -1,0 +1,251 @@
+Repeat 0
+RectGC
+CoordOn
+GridLine MEDGRAY
+AxesOn BLACK
+BackgroundOff
+BorderColor 1
+­10→Xmin
+"ACTUALLY NEGATIVE. DISPLAY PROBLEM.
+10→Xmax
+­10→Ymin
+"SAME HERE
+10→Ymax
+FnOff 
+PlotsOff 
+Horiz
+LabelOff
+ExprOn
+{10}→⌊SIZE
+TextColor(BLACK)
+Menu("WELCOME TO MATHTOWN! V 1.0","NEW GAME",N,"LOAD SAVE",L,"CLEAR SAVES",C,"ABOUT",A,"QUIT GAME",Q)
+Lbl N
+"NEWGAME
+Menu("SKIP THE TUTORIAL? (Y/N)","Y",NZ,"N",NT)
+Lbl NT
+"NEW GAME TUTORIAL
+ClrHome
+ClrDraw
+DispGraph
+Disp "MATHTOWN IS A GAME WHERE","YOU GROW YOUR MATHTOWN BY"
+Pause "PRESS ENTER TO CONTINUE."
+ClrHome
+Disp "EARNING MATHCOIN.",""
+Pause "PRESS ENTER TO CONTINUE."
+0→X
+{0}→⌊XOTER
+{0}→⌊YOTER
+{0,2}→⌊XPARK
+{0,1}→⌊YPARK
+Plot2(Scatter,⌊XPARK,⌊YPARK,⁺,GREEN)
+Plot3(Scatter,⌊XOTER,⌊YOTER,▫,BLUE)
+DispGraph
+Repeat X=√(5)
+:ClrHome
+:Disp "TWO POINTS ARE SHOWN- AT","(0,0) AND (2,1). WHAT IS"
+:Input "THE LENGTH BETWEEN THEM?  ",X
+End
+ClrHome
+Line(0,0,2,1,1,GREEN)
+Disp "NICE WORK!",""
+Pause "PRESS ENTER TO CONTINUE."
+Repeat dim(⌊XPARK)=4 and dim(⌊YPARK)=4
+:ClrHome
+:Disp "NOW, GIVE COORDINATES FOR","TWO POINTS THAT CAN FORM A"
+:Pause "PRESS ENTER TO CONTINUE."
+:ClrHome
+:Disp "SQUARE WITH THESE TWO.","INPUT IN LIST FORM ({8,4})"
+:Input "X-COORDINATES:",⌊TEMPX
+:Input "Y-COORDINATES:",⌊TEMPY
+:If min(⌊TEMPX={­1,1}) and min(⌊TEMPY={2,3}) or min(⌊TEMPX={1,­1}) and min(⌊TEMPY={3,2}) or min(⌊TEMPX={1,3}) and min(⌊TEMPY={­2,­1}) or min(⌊TEMPX={3,1}) and min(⌊TEMPY={­1,­2})
+Then
+::augment(⌊XPARK,⌊TEMPX)→⌊XPARK
+::augment(⌊YPARK,⌊TEMPY)→⌊YPARK
+:End
+End
+ClrList ⌊TEMPX,⌊TEMPY
+Line(⌊XPARK(1),⌊YPARK(1),⌊XPARK(2),⌊YPARK(2),1,GREEN)
+Line(⌊XPARK(1),⌊YPARK(1),⌊XPARK(3),⌊YPARK(3),1,GREEN)
+Line(⌊XPARK(1),⌊YPARK(1),⌊XPARK(4),⌊YPARK(4),1,GREEN)
+Line(⌊XPARK(2),⌊YPARK(2),⌊XPARK(3),⌊YPARK(3),1,GREEN)
+Line(⌊XPARK(2),⌊YPARK(2),⌊XPARK(4),⌊YPARK(4),1,GREEN)
+Line(⌊XPARK(3),⌊YPARK(3),⌊XPARK(4),⌊YPARK(4),1,GREEN)
+DispGraph
+Disp "GREAT! YOU'VE MADE A PARK.","THE TUTORIAL IS NOW DONE."
+Pause "PRESS ENTER TO CONTINUE."
+Goto LZ
+Lbl NZ
+"NEW GAME, NO TUTORIAL
+{0}→⌊XPARK
+{0}→⌊YPARK
+{0}→⌊XOTER
+{0}→⌊YOTER
+Goto LZ
+Lbl L
+"LOAD GAME
+Full
+ClrHome
+Disp "PLEASE NOTE: ATTEMPTING TO","LOAD AN EMPTY SAVE WILL","RESULT IN AN UNDEFINED","ERROR.","","",""
+Pause "PRESS ENTER TO CONTINUE."
+Menu("LOAD GAME","SAVE A",LA,"SAVE B",LB,"SAVE C",LC,"BACK",θ)
+Lbl LA
+"LOAD GAME A
+Horiz
+Matrlist([H],⌊XPARK,⌊YPARK,⌊XOTER,⌊YOTER,⌊SIZE)
+Plot2(Scatter,⌊XPARK,⌊YPARK,⁺,GREEN)
+Plot3(Scatter,⌊XOTER,⌊YOTER,▫,BLUE)
+Goto LZ
+Lbl LB
+"LOAD GAME B
+Horiz
+Matrlist([I],⌊XPARK,⌊YPARK,⌊XOTER,⌊YOTER,⌊SIZE)
+Plot2(Scatter,⌊XPARK,⌊YPARK,⁺,GREEN)
+Plot3(Scatter,⌊XOTER,⌊YOTER,▫,BLUE)
+Goto LZ
+Lbl LC
+"LOAD GAME C
+Matrlist([J],⌊XPARK,⌊YPARK,⌊XOTER,⌊YOTER,⌊SIZE)
+Plot2(Scatter,⌊XPARK,⌊YPARK,⁺,GREEN)
+Plot3(Scatter,⌊XOTER,⌊YOTER,▫,BLUE)
+Goto LZ
+Lbl LZ
+"LOADED GAME
+⌊SIZE(1)→S
+Repeat 0
+While dim(⌊XPARK)>1 and dim(⌊YPARK)>1 and ⌊XPARK(dim(⌊XPARK))=0 and ⌊YPARK(dim(⌊YPARK))=0
+dim(⌊XPARK)-1→dim(⌊XPARK)
+dim(⌊YPARK)-1→dim(⌊YPARK)
+End
+While dim(⌊XOTER)>1 and dim(⌊YOTER)>1 and ⌊XOTER(dim(⌊XOTER))=0 and ⌊YOTER(dim(⌊YOTER))=0
+dim(⌊XOTER)-1→dim(⌊XOTER)
+dim(⌊YOTER)-1→dim(⌊YOTER)
+End
+Fill(⌊SIZE(1),⌊SIZE)
+S→Xmax
+S→Ymax
+­S→Xmin
+­S→Ymin
+DispGraph
+Menu("MATHTOWN","VIEW MAP",LM,"QUESTS",LQ,"STORE",LS,"QUIT GAME",Lθ)
+Lbl LM
+"MAP
+Full
+DispGraph
+Text(150,1,"PRESS ENTER.")
+Repeat getKey=105:End
+Horiz
+Goto LX
+Lbl LQ
+"QUESTS
+Menu("QUESTS","QUEST 1",QA,"QUEST 2",QB,"QUEST 3",QC,"BACK",LX)
+Lbl QA
+ClrHome
+If not(⌊Q(1)) and checkTmr(Q)<60*60*24
+Then
+Menu("QUEST 1: EMPTY.","COME BACK IN "+eval(int((60*60*24-checkTmr(Q))/60/60))+"H "+eval(int(
+
+:Goto LZ
+Else:If ⌊Q(1)
+Then
+Menu("QUEST 1
+Lbl QB
+
+Lbl QC
+
+Lbl LS
+"STORE
+Menu("STORE: "+eval(C)+" MATHCOIN","TERRITORY",ST,"DECORATIONS",SD,"BACK",LX)
+Lbl Lθ
+"QUIT GAME
+max({dim(⌊XPARK),dim(⌊YPARK),dim(⌊XOTER),dim(⌊YOTER)})→X
+X→dim(⌊XPARK)
+X→dim(⌊YPARK)
+X→dim(⌊XOTER)
+X→dim(⌊YOTER)
+X→dim(⌊SIZE)
+Menu("SAVE?","SAVE A",SA,"SAVE B",SB,"SAVE C",SC,"EXIT WITHOUT SAVING",Q,"BACK",LX)
+Lbl SA
+"SAVE AND QUIT SAVE A
+Listmatr(⌊XPARK,⌊YPARK,⌊XOTER,⌊YOTER,⌊SIZE,[H])
+Goto θ
+Lbl SB
+"SAVE AND QUIT SAVE B
+Listmatr(⌊XPARK,⌊YPARK,⌊XOTER,⌊YOTER,⌊SIZE,[I])
+Goto θ
+Lbl SC
+"SAVE AND QUT SAVE C
+Listmatr(⌊XPARK,⌊YPARK,⌊XOTER,⌊YOTER,⌊SIZE,[J])
+Goto θ
+Lbl LX
+"RESET
+End
+Lbl C
+"CLEAR GAME
+Menu("CLEAR SAVES","SAVE A",CA,"SAVE B",CB,"SAVE C",CC,"BACK",θ)
+Lbl CA
+"CLEAR GAME A
+Menu("SAVE A","CLEAR SAVE?",ZA,"BACK",θ)
+Lbl ZA
+"CLEAR GAME A CONFIRMED
+[[0]]→[H]
+Goto CZ
+Lbl CB
+"CLEAR GAME B
+Menu("SAVE B","CLEAR SAVE?",ZB,"BACK",θ)
+Lbl ZB
+"CLEAR GAME B CONFIRMED
+[[0]]→[I]
+Goto CZ
+Lbl CC
+"CLEAR GAME C
+Menu("SAVE C","CLEAR SAVE?",ZC,"BACK",θ)
+Lbl ZC
+"CLEAR GAME C CONFIRMED
+[[0]]→[J]
+Goto CZ
+Lbl CZ
+"GAME CLEARED
+ClrHome
+Pause "SAVE CLEARED. PRESS ENTER."
+Goto θ
+Lbl A
+"ABOUT PAGES
+Menu("ABOUT MATHTOWN","USER MANUAL",AM,"ABOUT",AA,"CHANGELOG",AC,"BACK",θ)
+Lbl AM
+"MANUAL
+ClrHome
+Full
+Disp "MATHTOWN USER MANUAL","OBJECTIVE: INCREASE YOUR","MATHTOWN BY EARNING","MATHCOIN. THIS IS DONE BY","USING THE PYTHAGOREAN","THEOREM TO BUILD PARKS,","HOSPITALS, SCHOOLS, ETC.","PRESS ENTER TO RETURN TO"
+Pause "THE HOMEPAGE."
+Horiz
+Goto θ
+Lbl AA
+"ABOUT
+ClrHome
+Full
+Disp "MATHTOWN IS JUST THIS","THING I MADE WHEN I WAS","BORED IN MATH CLASS, YOU","KNOW?","THAT'S ALL IT IS.","I'M JACK, BY THE WAY. JACK","MOUL.","PRESS ENTER TO RETURN TO"
+Pause "THE HOMEPAGE."
+Horiz
+Goto θ
+Lbl AC
+"CHANGELOG
+ClrHome
+Full
+Disp "MATHTOWN CHANGELOG","V 1.0:INITIAL RELEASE.","","","","","","PRESS ENTER TO RETURN TO"
+Pause "THE HOMEPAGE."
+Horiz
+Goto θ
+Lbl θ
+"RETURNING TO HOMEPAGE
+End
+Lbl Q
+"QUITTING GAME
+ClrHome
+ClrDraw
+FnOn 
+­10→Xmin:­10→Ymin
+"ALSO ACTUALLY NEGATIVE.
+10→Xmax:10→Ymax
+Full
+PlotsOff 
+Stop
