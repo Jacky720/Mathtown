@@ -16,5 +16,5 @@ Huh. Something cleared my first post. Anyway, this is what the program can do:
 
 This is what it can't do:
 * Most anything with quests (My current objective is to resolve this.)
-* Allow you to buy Territory or Decorations.
+* Allow you to buy Decorations.
 * That's it, but the Quests thing is a biggie.
