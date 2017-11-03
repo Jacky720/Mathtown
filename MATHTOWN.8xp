@@ -121,6 +121,17 @@ dim(⌊XOTER)-1→dim(⌊XOTER)
 dim(⌊YOTER)-1→dim(⌊YOTER)
 End
 Fill(⌊SIZE(1),⌊SIZE)
+If dim(⌊XPARK)<4
+Then
+For(I,0,dim(⌊XPARK)-4,4)
+Line(⌊XPARK(1+I),⌊YPARK(1+I),⌊XPARK(2+I),⌊YPARK(2+I),1,GREEN)
+Line(⌊XPARK(1+I),⌊YPARK(1+I),⌊XPARK(3+I),⌊YPARK(3+I),1,GREEN)
+Line(⌊XPARK(1+I),⌊YPARK(1+I),⌊XPARK(4+I),⌊YPARK(4+I),1,GREEN)
+Line(⌊XPARK(2+I),⌊YPARK(2+I),⌊XPARK(3+I),⌊YPARK(3+I),1,GREEN)
+Line(⌊XPARK(2+I),⌊YPARK(2+I),⌊XPARK(4+I),⌊YPARK(4+I),1,GREEN)
+Line(⌊XPARK(3+I),⌊YPARK(3+I),⌊XPARK(4+I),⌊YPARK(4+I),1,GREEN)
+End
+End
 S→Xmax
 S→Ymax
 ­S→Xmin
