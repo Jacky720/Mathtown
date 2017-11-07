@@ -5,17 +5,14 @@ GridLine MEDGRAY
 AxesOn BLACK
 BackgroundOff
 BorderColor 1
-­10→Xmin
-"ACTUALLY NEGATIVE. DISPLAY PROBLEM.
-10→Xmax
-­10→Ymin
-"SAME HERE
-10→Ymax
+ZStandard
 FnOff 
 PlotsOff 
 Horiz
 LabelOff
 ExprOn
+If 0
+0→C
 {10}→⌊SIZE
 TextColor(BLACK)
 Menu("WELCOME TO MATHTOWN! V 1.0","NEW GAME",N,"LOAD SAVE",L,"CLEAR SAVES",C,"ABOUT",A,"QUIT GAME",Q)
@@ -73,6 +70,8 @@ Line(⌊XPARK(3),⌊YPARK(3),⌊XPARK(4),⌊YPARK(4),1,GREEN)
 DispGraph
 Disp "GREAT! YOU'VE MADE A PARK.","THE TUTORIAL IS NOW DONE."
 Pause "PRESS ENTER TO CONTINUE."
+{1,1,1}→⌊Q
+startTmr→Q
 Goto LZ
 Lbl NZ
 "NEW GAME, NO TUTORIAL
@@ -80,6 +79,13 @@ Lbl NZ
 {0}→⌊YPARK
 {0}→⌊XOTER
 {0}→⌊YOTER
+If 0
+{1,1,1}→⌊Q
+startTmr→Q
+"PARK W/ AREA "+eval(randInt(1,⌊SIZE(1)))→Str7
+"FLOWERBED"→Str8
+randInt(1,dim(⌊XOTER))→R
+"HOSPITAL "+eval(randInt(1,⌊SIZE(1)))+" FROM ("+eval(⌊XOTER(R))+","+eval(⌊YOTER(R))+")"→Str9
 Goto LZ
 Lbl L
 "LOAD GAME
@@ -120,18 +126,15 @@ While dim(⌊XOTER)>1 and dim(⌊YOTER)>1 and ⌊XOTER(dim(⌊XOTER))=0 and ⌊Y
 dim(⌊XOTER)-1→dim(⌊XOTER)
 dim(⌊YOTER)-1→dim(⌊YOTER)
 End
-Fill(⌊SIZE(1),⌊SIZE)
-If dim(⌊XPARK)<4
-Then
 For(I,0,dim(⌊XPARK)-4,4)
-Line(⌊XPARK(1+I),⌊YPARK(1+I),⌊XPARK(2+I),⌊YPARK(2+I),1,GREEN)
-Line(⌊XPARK(1+I),⌊YPARK(1+I),⌊XPARK(3+I),⌊YPARK(3+I),1,GREEN)
-Line(⌊XPARK(1+I),⌊YPARK(1+I),⌊XPARK(4+I),⌊YPARK(4+I),1,GREEN)
-Line(⌊XPARK(2+I),⌊YPARK(2+I),⌊XPARK(3+I),⌊YPARK(3+I),1,GREEN)
-Line(⌊XPARK(2+I),⌊YPARK(2+I),⌊XPARK(4+I),⌊YPARK(4+I),1,GREEN)
-Line(⌊XPARK(3+I),⌊YPARK(3+I),⌊XPARK(4+I),⌊YPARK(4+I),1,GREEN)
+Line(⌊XPARK(I+1),⌊YPARK(I+1),⌊XPARK(I+2),⌊YPARK(I+2),1,GREEN)
+Line(⌊XPARK(I+1),⌊YPARK(I+1),⌊XPARK(I+3),⌊YPARK(I+3),1,GREEN)
+Line(⌊XPARK(I+1),⌊YPARK(I+1),⌊XPARK(I+4),⌊YPARK(I+4),1,GREEN)
+Line(⌊XPARK(I+2),⌊YPARK(I+2),⌊XPARK(I+3),⌊YPARK(I+3),1,GREEN)
+Line(⌊XPARK(I+2),⌊YPARK(I+2),⌊XPARK(I+4),⌊YPARK(I+4),1,GREEN)
+Line(⌊XPARK(I+3),⌊YPARK(I+3),⌊XPARK(I+4),⌊YPARK(I+4),1,GREEN)
 End
-End
+Fill(⌊SIZE(1),⌊SIZE)
 S→Xmax
 S→Ymax
 ­S→Xmin
@@ -143,6 +146,7 @@ Lbl LM
 Full
 DispGraph
 Text(150,1,"PRESS ENTER.")
+Text(150,100,"EACH TICK IS "+eval(Xscl)+" BLOCKS.")
 Repeat getKey=105:End
 Horiz
 Goto LX
@@ -151,14 +155,7 @@ Lbl LQ
 Menu("QUESTS","QUEST 1",QA,"QUEST 2",QB,"QUEST 3",QC,"BACK",LX)
 Lbl QA
 ClrHome
-If not(⌊Q(1)) and checkTmr(Q)<60*60*24
-Then
-Menu("QUEST 1: EMPTY.","COME BACK IN "+eval(int((60*60*24-checkTmr(Q))/60/60))+"H "+eval(int(
-
-:Goto LZ
-Else:If ⌊Q(1)
-Then
-Menu("QUEST 1
+Menu("QUEST 1: BUILD A "+Str7,"BACK",LZ)
 Lbl QB
 
 Lbl QC
@@ -166,6 +163,21 @@ Lbl QC
 Lbl LS
 "STORE
 Menu("STORE: "+eval(C)+" MATHCOIN","TERRITORY",ST,"DECORATIONS",SD,"BACK",LX)
+Lbl ST
+ClrHome
+Disp "HOW MUCH TERRITORY DO YOU"
+Input "WANT TO BUY? ",X
+If C≥X
+Then
+S+X→S
+C-X→C
+int(S/20)+1→Xscl
+Xscl→Yscl
+Else
+Disp "YOU DON'T HAVE ENOUGH","MATHCOIN TO DO THAT!"
+Pause "PRESS ENTER TO CONTINUE."
+End
+Goto LX
 Lbl Lθ
 "QUIT GAME
 max({dim(⌊XPARK),dim(⌊YPARK),dim(⌊XOTER),dim(⌊YOTER)})→X
@@ -178,15 +190,15 @@ Menu("SAVE?","SAVE A",SA,"SAVE B",SB,"SAVE C",SC,"EXIT WITHOUT SAVING",Q,"BACK",
 Lbl SA
 "SAVE AND QUIT SAVE A
 Listmatr(⌊XPARK,⌊YPARK,⌊XOTER,⌊YOTER,⌊SIZE,[H])
-Goto θ
+Goto Q
 Lbl SB
 "SAVE AND QUIT SAVE B
 Listmatr(⌊XPARK,⌊YPARK,⌊XOTER,⌊YOTER,⌊SIZE,[I])
-Goto θ
+Goto Q
 Lbl SC
-"SAVE AND QUT SAVE C
+"SAVE AND QUIT SAVE C
 Listmatr(⌊XPARK,⌊YPARK,⌊XOTER,⌊YOTER,⌊SIZE,[J])
-Goto θ
+Goto Q
 Lbl LX
 "RESET
 End
@@ -198,21 +210,21 @@ Lbl CA
 Menu("SAVE A","CLEAR SAVE?",ZA,"BACK",θ)
 Lbl ZA
 "CLEAR GAME A CONFIRMED
-[[0]]→[H]
+DelVar [H]
 Goto CZ
 Lbl CB
 "CLEAR GAME B
 Menu("SAVE B","CLEAR SAVE?",ZB,"BACK",θ)
 Lbl ZB
 "CLEAR GAME B CONFIRMED
-[[0]]→[I]
+DelVar [I]
 Goto CZ
 Lbl CC
 "CLEAR GAME C
 Menu("SAVE C","CLEAR SAVE?",ZC,"BACK",θ)
 Lbl ZC
 "CLEAR GAME C CONFIRMED
-[[0]]→[J]
+DelVar [J]
 Goto CZ
 Lbl CZ
 "GAME CLEARED
@@ -254,9 +266,7 @@ Lbl Q
 ClrHome
 ClrDraw
 FnOn 
-­10→Xmin:­10→Ymin
-"ALSO ACTUALLY NEGATIVE.
-10→Xmax:10→Ymax
+ZStandard
 Full
 PlotsOff 
 Stop
