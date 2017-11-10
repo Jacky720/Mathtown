@@ -18,3 +18,7 @@ This is what it can't do:
 * Most anything with quests (My current objective is to resolve this.)
 * Allow you to buy Decorations.
 * That's it, but the Quests thing is a biggie.
+
+## 11/10
+
+Great news! You can now buy decorations- for a price, of course.
