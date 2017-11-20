@@ -22,3 +22,7 @@ This is what it can't do:
 ## 11/10
 
 Great news! You can now buy decorations- for a price, of course.
+
+## 11/20
+
+I'm making progress on the Quest interface. In layman's terms, now it tells your what the quest is. (Yeah, I need more work on this.)
