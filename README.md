@@ -26,3 +26,7 @@ Great news! You can now buy decorations- for a price, of course.
 ## 11/20
 
 I'm making progress on the Quest interface. In layman's terms, now it tells your what the quest is. (Yeah, I need more work on this.)
+
+## 12/1
+
+Cheat codes have been enabled, if you want infinite money or something.
